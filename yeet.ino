@@ -10,7 +10,7 @@ const int echoPin = 11;
 long duration;
 int distance;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(12, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(10, PIN, NEO_GRB + NEO_KHZ800);
 
 
 void setup() {
@@ -43,12 +43,12 @@ void loop() {
 
   Serial.print ("Distance: ");
   Serial.println (distance);
-if (distance < 50)  
+if (distance < 20 && distance != 0)  
 
 {
-  //colorWipe(strip.Color(255, 0, 0), 50); // Red
+  colorWipe(strip.Color(255, 0, 0), 50); // Red
 
-  //colorWipe(strip.Color(0, 255, 0), 50); // Green
+  colorWipe(strip.Color(0, 255, 0), 50); // Green
 
   //colorWipe(strip.Color(0, 0, 255), 50); // Blue
 
@@ -56,7 +56,7 @@ if (distance < 50)
 
   //theaterChase(strip.Color(127, 0, 0), 50); // Red
 
-  theaterChase(strip.Color(0, 0, 127), 50); // Blue
+  //theaterChase(strip.Color(0, 0, 127), 50); // Blue
 
 
   rainbowCycle(3);
@@ -68,9 +68,9 @@ if (distance < 50)
   Serial.println (distance);
 }
 
-//if (distance > 50)
+if (distance > 20)
 {
-  //strip.show();
+  strip.show();
 
 }
 }
@@ -86,7 +86,7 @@ void colorWipe(uint32_t c, uint8_t wait) {
 void rainbow(uint8_t wait) {
   uint16_t i, j;
 
-  for(j=0; j<2s56; j++) {
+  for(j=0; j<256; j++) {
     for(i=0; i<strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel((i+j) & 255));
     }
